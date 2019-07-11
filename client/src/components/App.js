@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import firebase from '../firebase/firebase';
 import { connect } from 'react-redux';
 import Form from './Form.js';
-// import List from './List.js';
 import {
     changeText, changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed
 } from '../actions'
@@ -45,11 +44,6 @@ class App extends Component {
                     changeImage={this.props.changeImage}
                     initializeForm={this.props.initializeForm}
                 />
-                {/* <List
-                    requestData={this.props.requestData}
-                    receiveDataSuccess={this.props.receiveDataSuccess}
-                    receiveDataFailed={this.props.receiveDataFailed}
-                /> */}
             </div>
         )
     }
