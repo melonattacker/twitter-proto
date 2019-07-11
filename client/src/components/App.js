@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import Form from './Form.js';
 // import List from './List.js';
 import {
-    changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed
+    changeText, changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed
 } from '../actions'
 
 class App extends Component {
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
-           console.log(user.uid);
+           if(!user) {
+               return;
+           }
            this.props.loginUser(user.uid);
         })
     }
@@ -28,16 +30,18 @@ class App extends Component {
         return(
             <div>
                 <p>UID: {this.props.uid}</p>
-                <div>
+                
                 {this.props.uid ? (
                     <button onClick={this.logout}>Google Logout</button>
                     ) : (
                     <button onClick={this.login}>Google Login</button>
                 )}
-                </div>
+
                 <Form
+                    text={this.props.text}
                     image={this.props.image}
                     uid={this.props.uid}
+                    changeText={this.props.changeText}
                     changeImage={this.props.changeImage}
                     initializeForm={this.props.initializeForm}
                 />
@@ -51,20 +55,9 @@ class App extends Component {
     }
 }
 
-const mapDispatchToProps = ({ changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed });
+const mapDispatchToProps = ({ changeText, changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed });
 
-const mapStateToProps = state => ({ uid: state.users.uid, image: state.form.image, images: state.request.images, isFetching: state.request.isFetching })
+const mapStateToProps = state => ({ uid: state.users.uid, text: state.form.text, image: state.form.image, images: state.request.images, isFetching: state.request.isFetching })
 
 export default connect(mapStateToProps,mapDispatchToProps)(App)
 
-// import React, { Component } from 'react';
-
-// class App extends Component {
-//     render() {
-//         return(
-//             <div></div>
-//         )
-//     }
-// }
-
-// export default App;

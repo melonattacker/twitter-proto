@@ -45,7 +45,7 @@ app.post('/post/user', (req, res) => {
 app.post('/post/create', (req, res) => {
     const created_by = req.body.created_by;
     const text = req.body.text;
-    const image_url = req.body.path;
+    const image_url = req.body.image_url;
     client.query('INSERT INTO post SET ?', { created_by: created_by, text: text, image_url: image_url }, (err, result) => {
         if (err) throw err;
         res.send(result);
