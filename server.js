@@ -23,8 +23,8 @@ client.connect(function (err) {
 });
 
 // 画像一括取得
-app.get('/image', (req, res) => {
-    client.query('SELECT * from image;', (err, rows, fields) => {
+app.get('/post', (req, res) => {
+    client.query('SELECT * from post;', (err, rows, fields) => {
         if (err) throw err;
 
         res.send(rows);
@@ -32,9 +32,9 @@ app.get('/image', (req, res) => {
 });
 
 // ユーザーごとの画像を取得
-app.post('/image/user', (req, res) => {
+app.post('/post/user', (req, res) => {
     const created_by = req.body.created_by;
-    client.query('SELECT * from image WHERE created_by = ?;', [created_by], (err, rows, fields) => {
+    client.query('SELECT * from post WHERE created_by = ?;', [created_by], (err, rows, fields) => {
         if (err) throw err;
 
         res.send(rows);
@@ -42,22 +42,23 @@ app.post('/image/user', (req, res) => {
 });
 
 // 画像のパスを保存
-app.post('/image/create', (req, res) => {
+app.post('/post/create', (req, res) => {
     const created_by = req.body.created_by;
-    const path = req.body.path;
-    client.query('INSERT INTO image SET ?', {created_by: created_by, path: path}, (err, result) => {
+    const text = req.body.text;
+    const image_url = req.body.path;
+    client.query('INSERT INTO post SET ?', { created_by: created_by, text: text, image_url: image_url }, (err, result) => {
         if (err) throw err;
         res.send(result);
     })
 });
 
 // 画像のパスを削除
-app.delete('/image/delete', (req, res) => {
+app.delete('/post/delete', (req, res) => {
     const id = req.body.id;
     const created_by = req.body.created_by;
-    client.query(`DELETE FROM image WHERE id = ?`, [id], (err, result) => {
+    client.query(`DELETE FROM post WHERE id = ?`, [id], (err, result) => {
         if (err) throw err;
-        client.query('SELECT * from image WHERE created_by = ?', [created_by], (err, rows, fields) => {
+        client.query('SELECT * from post WHERE created_by = ?', [created_by], (err, rows, fields) => {
             if (err) throw err;
             res.send(rows);
         });
