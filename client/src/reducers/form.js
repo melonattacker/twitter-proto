@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
         case CHANGE_TEXT:
             return {
                 ...state,
-                image: action.text
+                text: action.text
             }
         case CHANGE_IMAGE:
             return {
@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
                 image: action.image
             }
         case INITIALIZE_FORM:
-            return initialState.image
+            return initialState
         default:
             return state;
     }

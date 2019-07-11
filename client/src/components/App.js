@@ -10,7 +10,9 @@ import {
 class App extends Component {
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
-           console.log(user.uid);
+           if(!user) {
+               return;
+           }
            this.props.loginUser(user.uid);
         })
     }
@@ -28,18 +30,18 @@ class App extends Component {
         return(
             <div>
                 <p>UID: {this.props.uid}</p>
-                <div>
+                
                 {this.props.uid ? (
                     <button onClick={this.logout}>Google Logout</button>
                     ) : (
                     <button onClick={this.login}>Google Login</button>
                 )}
-                </div>
+
                 <Form
                     text={this.props.text}
                     image={this.props.image}
                     uid={this.props.uid}
-                    changeText={this.props.text}
+                    changeText={this.props.changeText}
                     changeImage={this.props.changeImage}
                     initializeForm={this.props.initializeForm}
                 />
