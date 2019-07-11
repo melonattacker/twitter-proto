@@ -1,3 +1,4 @@
+export const CHANGE_TEXT = 'CHANGE_TEXT';
 export const CHANGE_IMAGE = 'CHANGE_IMAGE';
 export const INITIALIZE_FORM = 'INITIALIZE_FORM';
 export const LOGIN_USER = 'LOGIN_USER';
@@ -5,6 +6,11 @@ export const LOGOUT = 'LOGOUT';
 export const REQUEST_DATA = 'REQUEST_DATA';
 export const RECEIVE_DATA_SUCCESS = 'RECEIVE_DATA_SUCCESS';
 export const RECEIVE_DATA_FAILED = 'RECEIVE_DATA_FAILED';
+
+export const changeText = (text) => ({
+    type: CHANGE_TEXT,
+    text
+})
 
 export const changeImage = (image) => ({
     type: CHANGE_IMAGE,
