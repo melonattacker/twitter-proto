@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Form from './Form.js';
 // import List from './List.js';
 import {
-    changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed
+    changeText, changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed
 } from '../actions'
 
 class App extends Component {
@@ -36,8 +36,10 @@ class App extends Component {
                 )}
                 </div>
                 <Form
+                    text={this.props.text}
                     image={this.props.image}
                     uid={this.props.uid}
+                    changeText={this.props.text}
                     changeImage={this.props.changeImage}
                     initializeForm={this.props.initializeForm}
                 />
@@ -51,20 +53,9 @@ class App extends Component {
     }
 }
 
-const mapDispatchToProps = ({ changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed });
+const mapDispatchToProps = ({ changeText, changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed });
 
-const mapStateToProps = state => ({ uid: state.users.uid, image: state.form.image, images: state.request.images, isFetching: state.request.isFetching })
+const mapStateToProps = state => ({ uid: state.users.uid, text: state.form.text, image: state.form.image, images: state.request.images, isFetching: state.request.isFetching })
 
 export default connect(mapStateToProps,mapDispatchToProps)(App)
 
-// import React, { Component } from 'react';
-
-// class App extends Component {
-//     render() {
-//         return(
-//             <div></div>
-//         )
-//     }
-// }
-
-// export default App;
