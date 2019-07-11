@@ -3,10 +3,11 @@ import firebase from '../firebase/firebase';
 import { connect } from 'react-redux';
 import Form from './Form.js';
 import {
-    changeText, changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed
+    changeText, changeImage, initializeForm, loginUser, logoutUser 
 } from '../actions'
 
 class App extends Component {
+
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
            if(!user) {
@@ -14,15 +15,21 @@ class App extends Component {
            }
            this.props.loginUser(user.uid);
         })
+        this.logout = this.logout.bind(this);
     }
 
     login() {
-        firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        .then(() => {
+            return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+        })
     }
 
     logout() {
-        firebase.auth().signOut();
-        this.props.logoutUser();
+        firebase.auth().signOut()
+        .then(() => {
+            this.props.logoutUser();
+        })
     }
 
     render() {
@@ -49,9 +56,9 @@ class App extends Component {
     }
 }
 
-const mapDispatchToProps = ({ changeText, changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed });
+const mapDispatchToProps = ({ changeText, changeImage, initializeForm, loginUser, logoutUser });
 
-const mapStateToProps = state => ({ uid: state.users.uid, text: state.form.text, image: state.form.image, images: state.request.images, isFetching: state.request.isFetching })
+const mapStateToProps = state => ({ uid: state.users.uid, text: state.form.text, image: state.form.image })
 
 export default connect(mapStateToProps,mapDispatchToProps)(App)
 

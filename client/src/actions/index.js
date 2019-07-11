@@ -34,9 +34,9 @@ export const requestData = () => ({
     type: REQUEST_DATA
 })
 
-export const receiveDataSuccess = (images) => ({
+export const receiveDataSuccess = (posts) => ({
     type: RECEIVE_DATA_SUCCESS,
-    images
+    posts
 })
 
 export const receiveDataFailed = () => ({

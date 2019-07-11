@@ -16,7 +16,7 @@ export default (state = initialState, action) => {
         case LOGOUT:
             return {
                 ...state,
-                uid: initialState.uid
+                uid: ''
             }
         default:
             return state;
