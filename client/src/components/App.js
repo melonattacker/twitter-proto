@@ -6,6 +6,8 @@ import {
     changeText, changeImage, initializeForm, loginUser, logoutUser 
 } from '../actions'
 
+import '../App.css'
+
 class App extends Component {
 
     componentDidMount() {
@@ -34,15 +36,22 @@ class App extends Component {
 
     render() {
         return(
-            <div>
+            <div className='App'>
                 <p>UID: {this.props.uid}</p>
-                
                 {this.props.uid ? (
                     <button onClick={this.logout}>Google Logout</button>
                     ) : (
                     <button onClick={this.login}>Google Login</button>
                 )}
-
+                <br/>
+                <br/>
+                <div>
+                    <a href='./timeline'>タイムライン</a>
+                    <br/>
+                    <a href='./mylist'>マイページ</a>
+                </div>
+                <br/>
+                <p>ツイート</p>
                 <Form
                     text={this.props.text}
                     image={this.props.image}

@@ -7,11 +7,11 @@ import {
     loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed
 } from '../actions'
 
-import '../App.css';
+import '../App.css'
 
 const ROOT_ENDPOINT = 'http://localhost:3001';
 
-class MyList extends Component {
+class AllList extends Component {
     async componentWillMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if(!user) {
@@ -23,45 +23,15 @@ class MyList extends Component {
     }
 
     fetchData = () => {
-        if(!this.props.uid) {
-            alert('ログインしてください')
-        }
         this.props.requestData();
-        axios({
-            method: 'post',
-            url: ROOT_ENDPOINT + '/post/user',
-            data: {
-                created_by: this.props.uid,
-            }
-        })
+        axios.get(ROOT_ENDPOINT + '/post')
         .then(res => {
-            const my_posts = res.data;
-            console.log(my_posts)
-            this.props.receiveDataSuccess(my_posts);
+            const posts = res.data;
+            console.log(posts)
+            this.props.receiveDataSuccess(posts);
         })
         .catch(err => {
             console.log(err);
-            this.props.receiveDataFailed();
-        })
-    }
-
-    deletePost = (id) => {
-        this.props.requestData();
-        axios({
-            method: 'delete',
-            url: ROOT_ENDPOINT + '/post/delete',
-            data: {
-                id: id,
-                created_by: this.props.uid
-            }
-        })
-        .then(res => {
-            const my_posts = res.data;
-            this.props.receiveDataSuccess(my_posts);
-        })
-        .catch(err => {
-            console.log(err);
-            alert('削除に失敗しました');
             this.props.receiveDataFailed();
         })
     }
@@ -71,7 +41,7 @@ class MyList extends Component {
             <div className='App'>
                 <p>UID: {this.props.uid}</p>
                 <br/>
-                <a href='./timeline'>タイムライン</a>
+                <a href='./mylist'>マイページ</a>
                 <br/>
                 <a href='./'>ツイートする</a>
                 <br/>
@@ -90,7 +60,6 @@ class MyList extends Component {
                                        : <p></p>
                                     }
                                     <p>{post.time}</p>
-                                    <button onClick={() => this.deletePost(post.id)}>削除</button>
                                     </div>
                                 ))}
                           </div>
@@ -104,4 +73,4 @@ const mapDispatchToProps = ({ loginUser, logoutUser, requestData, receiveDataSuc
 
 const mapStateToProps = state => ({ uid: state.users.uid, posts: state.request.posts, isFetching: state.request.isFetching })
 
-export default connect(mapStateToProps,mapDispatchToProps)(MyList)
+export default connect(mapStateToProps,mapDispatchToProps)(AllList)
