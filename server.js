@@ -22,15 +22,10 @@ client.connect(function (err) {
     console.log('connected as id ' + client.threadId);
 });
 
-app.get('/', (req, res) => {
-    res.send('アホが！！！！！！！！')
-})
-
 // 画像一括取得
 app.get('/post', (req, res) => {
     client.query('SELECT * from post;', (err, rows, fields) => {
         if (err) throw err;
-        console.log('いきてるかーーーーーーーーーー')
         res.send(rows);
     });
 });
