@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from '../firebase/firebase';
 import axios from 'axios';
 
-const ROOT_ENDPOINT = 'mysql://b6f26e95edb042:04f7ce59@us-cdbr-iron-east-02.cleardb.net/heroku_06f4641160041ce?reconnect=true';
+const ROOT_ENDPOINT = 'https://save-image-app.herokuapp.com';
 
 const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => {
     const postTweet = () => {

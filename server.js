@@ -25,7 +25,7 @@ client.connect(function (err) {
 app.get('/post', (req, res) => {
     client.query('SELECT * from post;', (err, rows, fields) => {
         if (err) throw err;
-
+        res.setHeader('Access-Controll-Allow-Origin');
         res.send(rows);
     });
 });
@@ -35,7 +35,7 @@ app.post('/post/user', (req, res) => {
     const created_by = req.body.created_by;
     client.query('SELECT * from post WHERE created_by = ?;', [created_by], (err, rows, fields) => {
         if (err) throw err;
-
+        res.setHeader('Access-Controll-Allow-Origin');
         res.send(rows);
     });
 });
@@ -48,6 +48,7 @@ app.post('/post/create', (req, res) => {
     const time = new Date();
     client.query('INSERT INTO post SET ?', { created_by: created_by, text: text, image_url: image_url, time: time }, (err, result) => {
         if (err) throw err;
+        res.setHeader('Access-Controll-Allow-Origin');
         res.send(result);
     })
 });
@@ -60,6 +61,7 @@ app.delete('/post/delete', (req, res) => {
         if (err) throw err;
         client.query('SELECT * from post WHERE created_by = ?', [created_by], (err, rows, fields) => {
             if (err) throw err;
+            res.setHeader('Access-Controll-Allow-Origin');
             res.send(rows);
         });
     });
