@@ -19,7 +19,7 @@ class App extends Component {
     }
 
     login() {
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         .then(() => {
             return firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
         })

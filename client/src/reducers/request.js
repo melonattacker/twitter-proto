@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                posts: action.images
+                posts: action.posts
             }
         case RECEIVE_DATA_FAILED:
             return {
