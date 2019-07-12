@@ -10,7 +10,8 @@ const client = mysql.createConnection({
     host: 'us-cdbr-iron-east-02.cleardb.net',
     user: 'b6f26e95edb042',
     password: '04f7ce59',
-    database: 'heroku_06f4641160041ce'
+    database: 'heroku_06f4641160041ce',
+    port: 3306
 });
 
 client.connect(function (err) {
