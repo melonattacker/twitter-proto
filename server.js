@@ -37,9 +37,6 @@ app.get('/post', (req, res) => {
 
 // ユーザーごとの画像を取得
 app.post('/post/user', (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     const created_by = req.body.created_by;
     client.query('SELECT * from post WHERE created_by = ?;', [created_by], (err, rows, fields) => {
         if (err) throw err;
@@ -49,9 +46,6 @@ app.post('/post/user', (req, res) => {
 
 // 画像のパスを保存
 app.post('/post/create', (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     const created_by = req.body.created_by;
     const text = req.body.text;
     const image_url = req.body.image_url;
@@ -64,9 +58,6 @@ app.post('/post/create', (req, res) => {
 
 // 画像のパスを削除
 app.delete('/post/delete', (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     const id = req.body.id;
     const created_by = req.body.created_by;
     client.query(`DELETE FROM post WHERE id = ?`, [id], (err, result) => {
@@ -78,4 +69,4 @@ app.delete('/post/delete', (req, res) => {
     });
 });
 
-app.listen(process.env.PORT || 3001, () => console.log('Listening on port 3001!'))
+app.listen(process.env.PORT || 3001, () => console.log('Listening!!'))
