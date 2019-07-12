@@ -7,16 +7,20 @@ const ROOT_ENDPOINT = 'https://save-image-app.herokuapp.com';
 const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => {
     const postTweet = () => {
         if(!image) {
+            alert('画像を選択して下さい')
             return;
         } 
         if(!uid) {
-            alert('ログインしてください')
+            alert('ログインしてください');
+            return;
         }
         if(text.length === 0) {
-            alert('テキストを入力してください')
+            alert('テキストを入力してください');
+            return;
         }
         if(text.length > 140) {
-            alert('テキストは140文字以内です')
+            alert('テキストは140文字以内です');
+            return;
         }
         const name = image.name;
         const storageRef = firebase.storage().ref();
@@ -38,7 +42,7 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
                     }
                 })
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
                     initializeForm();
                     alert('投稿が完了しました');
                 })

@@ -27,11 +27,11 @@ class AllList extends Component {
         axios.get(ROOT_ENDPOINT + '/post')
         .then(res => {
             const posts = res.data;
-            console.log(posts)
+            // console.log(posts)
             this.props.receiveDataSuccess(posts);
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             this.props.receiveDataFailed();
         })
     }

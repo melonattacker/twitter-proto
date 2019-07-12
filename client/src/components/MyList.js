@@ -36,11 +36,11 @@ class MyList extends Component {
         })
         .then(res => {
             const my_posts = res.data;
-            console.log(my_posts)
+            // console.log(my_posts)
             this.props.receiveDataSuccess(my_posts);
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             this.props.receiveDataFailed();
         })
     }
@@ -60,7 +60,7 @@ class MyList extends Component {
             this.props.receiveDataSuccess(my_posts);
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             alert('削除に失敗しました');
             this.props.receiveDataFailed();
         })
