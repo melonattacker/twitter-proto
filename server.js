@@ -22,6 +22,10 @@ client.connect(function (err) {
     console.log('connected as id ' + client.threadId);
 });
 
+app.get('/', (req, res) => {
+    res.send('アホが！！！！！！！！')
+})
+
 // 画像一括取得
 app.get('/post', (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
