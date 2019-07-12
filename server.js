@@ -29,6 +29,7 @@ app.get('/post', (req, res) => {
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     client.query('SELECT * from post;', (err, rows, fields) => {
         if (err) throw err;
+        console.log('いきてるかーーーーーーーーーー')
         res.send(rows);
     });
 });
