@@ -1,10 +1,10 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
-// const cors = require('cors')({origin: true});
+const cors = require('cors')({origin: true});
 const app = express();
 app.use(bodyParser.json());
-// app.use(cors);
+app.use(cors);
 
 const client = mysql.createConnection({
     host: 'us-cdbr-iron-east-02.cleardb.net',
