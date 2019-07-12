@@ -6,7 +6,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors);
 
-const client = mysql.createConnection({
+const client = mysql.createPool({
     host: 'us-cdbr-iron-east-02.cleardb.net',
     user: 'b6f26e95edb042',
     password: '04f7ce59',
