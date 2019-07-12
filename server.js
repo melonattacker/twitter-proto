@@ -14,12 +14,12 @@ const client = mysql.createPool({
     port: 3306
 });
 
-client.connect(function (err) {
+client.getConnection(function (err) {
     if (err) {
         console.error('error connecting: ' + err.stack);
         return;
     }
-    console.log('connected as id ' + client.threadId);
+    console.log('connected!!!');
 });
 
 // 画像一括取得
