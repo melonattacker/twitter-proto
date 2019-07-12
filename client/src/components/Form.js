@@ -8,10 +8,15 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
     const postTweet = () => {
         if(!image) {
             return;
-        } else if(!uid){
-            alert('ログインしてください');
-        } else if(text.length > 140) {
-            alert('テキストは140文字までです');
+        } 
+        if(!uid) {
+            alert('ログインしてください')
+        }
+        if(text.length === 0) {
+            alert('テキストを入力してください')
+        }
+        if(text.length > 140) {
+            alert('テキストは140文字以内です')
         }
         const name = image.name;
         const storageRef = firebase.storage().ref();

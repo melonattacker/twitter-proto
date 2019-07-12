@@ -9,7 +9,7 @@ import {
 
 import '../App.css'
 
-const ROOT_ENDPOINT = 'https://us-cdbr-iron-east-02.cleardb.net';
+const ROOT_ENDPOINT = 'https://save-image-app.herokuapp.com';
 
 class AllList extends Component {
     async componentWillMount() {
