@@ -46,6 +46,7 @@ class AllList extends Component {
                 <a href='./'>ツイートする</a>
                 <br/>
                 <br/>
+                <h2>タイムライン</h2>
                 {
                     this.props.isFetching
                         ? <h2>Now Loading...</h2>
@@ -54,6 +55,7 @@ class AllList extends Component {
                                     <div 
                                     style={{border: '1px solid black'}}
                                     key={post.id}>
+                                    <p>{post.created_by}</p>
                                     <p>{post.text}</p>
                                     {post.image_url 
                                        ? <img src={post.image_url} width='300' height='200' />

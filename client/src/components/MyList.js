@@ -76,6 +76,7 @@ class MyList extends Component {
                 <a href='./'>ツイートする</a>
                 <br/>
                 <br/>
+                <h2>あなたのツイート</h2>
                 {
                     this.props.isFetching
                         ? <h2>Now Loading...</h2>

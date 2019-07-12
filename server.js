@@ -7,11 +7,10 @@ app.use(bodyParser.json());
 app.use(cors);
 
 const client = mysql.createConnection({
-    host: 'localhost',
-    user: 'node',
-    password: 'HashSignBack1484?_!',
-    port : 3306,
-    database: 'save_image'
+    host: 'us-cdbr-iron-east-02.cleardb.net',
+    user: 'b6f26e95edb042',
+    password: '04f7ce59',
+    database: 'heroku_06f4641160041ce'
 });
 
 client.connect(function (err) {
@@ -46,7 +45,8 @@ app.post('/post/create', (req, res) => {
     const created_by = req.body.created_by;
     const text = req.body.text;
     const image_url = req.body.image_url;
-    client.query('INSERT INTO post SET ?', { created_by: created_by, text: text, image_url: image_url }, (err, result) => {
+    const time = new Date();
+    client.query('INSERT INTO post SET ?', { created_by: created_by, text: text, image_url: image_url, time: time }, (err, result) => {
         if (err) throw err;
         res.send(result);
     })
@@ -65,4 +65,4 @@ app.delete('/post/delete', (req, res) => {
     });
 });
 
-app.listen(3001, () => console.log('Listening on port 3001!'))
+app.listen(process.env.PORT || 3001, () => console.log('Listening on port 3001!'))
