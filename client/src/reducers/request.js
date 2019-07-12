@@ -4,7 +4,7 @@ import {
 
 const initialState = {
     isFetching: false,
-    images: []
+    posts: []
 }
 
 export default (state = initialState, action) => {
@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                users: action.images
+                posts: action.posts
             }
         case RECEIVE_DATA_FAILED:
             return {
