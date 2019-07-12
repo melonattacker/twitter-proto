@@ -1,10 +1,10 @@
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
-// const cors = require('cors')({origin: true});
+const cors = require('cors')({origin: true});
 const app = express();
 app.use(bodyParser.json());
-// app.use(cors);
+app.use(cors);
 
 const client = mysql.createConnection({
     host: 'us-cdbr-iron-east-02.cleardb.net',
@@ -28,9 +28,6 @@ app.get('/', (req, res) => {
 
 // 画像一括取得
 app.get('/post', (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     client.query('SELECT * from post;', (err, rows, fields) => {
         if (err) throw err;
         console.log('いきてるかーーーーーーーーーー')
