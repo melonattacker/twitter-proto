@@ -22,6 +22,7 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
             alert('テキストは140文字以内です');
             return;
         }
+        initializeForm();
         const name = image.name;
         const storageRef = firebase.storage().ref();
         const imageRef = storageRef.child(`${uid}/${name}`);
@@ -42,8 +43,6 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
                     }
                 })
                 .then(res => {
-                    // console.log(res);
-                    initializeForm();
                     alert('投稿が完了しました');
                 })
                 .catch(err => {
@@ -61,7 +60,7 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
                 <input type='file' accept='image/*' onChange={e => changeImage(e.target.files[0])}></input>
             </div>
             <div>
-                <textarea rows='10' cols='60' type='text' onChange={e => changeText(e.target.value)}></textarea>
+                <textarea  value={text} rows='10' cols='60' type='text' onChange={e => changeText(e.target.value)}></textarea>
             </div>
             <button onClick={() => postTweet()}>投稿</button>
         </div>

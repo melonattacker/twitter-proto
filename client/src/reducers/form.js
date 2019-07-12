@@ -18,7 +18,10 @@ export default (state = initialState, action) => {
                 image: action.image
             }
         case INITIALIZE_FORM:
-            return initialState
+            return {
+                ...state,
+                text: ''
+            }
         default:
             return state;
     }
