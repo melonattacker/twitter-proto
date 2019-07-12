@@ -5,14 +5,11 @@ const config = {
     authDomain: "save-image-app.firebaseapp.com",
     databaseURL: "https://save-image-app.firebaseio.com",
     projectId: "save-image-app",
-    storageBucket: "",
+    storageBucket: "save-image-app.appspot.com",
     messagingSenderId: "326981613708",
-    appId: "1:326981613708:web:b80c6cf4416f2552"
+    appId: "1:326981613708:web:0bb722ec39025734"
 }
 
 firebase.initializeApp(config);
-
-export const db = firebase.firestore();
-export const functions = firebase.functions();
 
 export default firebase;

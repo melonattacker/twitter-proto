@@ -6,12 +6,21 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors);
 
+const ALLOWED_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'HEAD',
+    'OPTIONS'
+];
+
 const client = mysql.createConnection({
-    host: 'localhost',
-    user: 'node',
-    password: 'HashSignBack1484?_!',
-    port : 3306,
-    database: 'save_image'
+    host: 'us-cdbr-iron-east-02.cleardb.net',
+    user: 'b6f26e95edb042',
+    password: '04f7ce59',
+    database: 'heroku_06f4641160041ce'
 });
 
 client.connect(function (err) {
@@ -23,45 +32,61 @@ client.connect(function (err) {
 });
 
 // 画像一括取得
-app.get('/image', (req, res) => {
-    client.query('SELECT * from image;', (err, rows, fields) => {
+app.get('/post', (req, res) => {
+    const origin = req.headers.origin;
+    client.query('SELECT * from post;', (err, rows, fields) => {
         if (err) throw err;
-
+        res.setHeader('Access-Controll-Allow-Origin', origin);
+        res.setHeader('Access-Control-Allow-Methods', ALLOWED_METHODS.join(','));
+        res.setHeader('Access-Control-Allow-Headers', 'Content-type,Accept,X-Custom-Header');
         res.send(rows);
     });
 });
 
 // ユーザーごとの画像を取得
-app.post('/image/user', (req, res) => {
+app.post('/post/user', (req, res) => {
+    const origin = req.headers.origin;
     const created_by = req.body.created_by;
-    client.query('SELECT * from image WHERE created_by = ?;', [created_by], (err, rows, fields) => {
+    client.query('SELECT * from post WHERE created_by = ?;', [created_by], (err, rows, fields) => {
         if (err) throw err;
-
+        res.setHeader('Access-Controll-Allow-Origin', origin);
+        res.setHeader('Access-Control-Allow-Methods', ALLOWED_METHODS.join(','));
+        res.setHeader('Access-Control-Allow-Headers', 'Content-type,Accept,X-Custom-Header');
         res.send(rows);
     });
 });
 
 // 画像のパスを保存
-app.post('/image/create', (req, res) => {
+app.post('/post/create', (req, res) => {
+    const origin = req.headers.origin;
     const created_by = req.body.created_by;
-    const path = req.body.path;
-    client.query('INSERT INTO image SET ?', {created_by: created_by, path: path}, (err, result) => {
+    const text = req.body.text;
+    const image_url = req.body.image_url;
+    const time = new Date();
+    client.query('INSERT INTO post SET ?', { created_by: created_by, text: text, image_url: image_url, time: time }, (err, result) => {
         if (err) throw err;
+        res.setHeader('Access-Controll-Allow-Origin', origin);
+        res.setHeader('Access-Control-Allow-Methods', ALLOWED_METHODS.join(','));
+        res.setHeader('Access-Control-Allow-Headers', 'Content-type,Accept,X-Custom-Header');
         res.send(result);
     })
 });
 
 // 画像のパスを削除
-app.delete('/image/delete', (req, res) => {
+app.delete('/post/delete', (req, res) => {
+    const origin = req.headers.origin;
     const id = req.body.id;
     const created_by = req.body.created_by;
-    client.query(`DELETE FROM image WHERE id = ?`, [id], (err, result) => {
+    client.query(`DELETE FROM post WHERE id = ?`, [id], (err, result) => {
         if (err) throw err;
-        client.query('SELECT * from image WHERE created_by = ?', [created_by], (err, rows, fields) => {
+        client.query('SELECT * from post WHERE created_by = ?', [created_by], (err, rows, fields) => {
             if (err) throw err;
+            res.setHeader('Access-Controll-Allow-Origin', origin);
+            res.setHeader('Access-Control-Allow-Methods', ALLOWED_METHODS.join(','));
+            res.setHeader('Access-Control-Allow-Headers', 'Content-type,Accept,X-Custom-Header');
             res.send(rows);
         });
     });
 });
 
-app.listen(3001, () => console.log('Listening on port 3001!'))
+app.listen(process.env.PORT || 3001, () => console.log('Listening on port 3001!'))

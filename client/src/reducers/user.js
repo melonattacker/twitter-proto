@@ -10,11 +10,13 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case LOGIN_USER:
             return {
+                ...state,
                 uid: action.uid
             }
         case LOGOUT:
             return {
-                uid: action.uid
+                ...state,
+                uid: ''
             }
         default:
             return state;
