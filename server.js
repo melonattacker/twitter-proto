@@ -6,12 +6,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors);
 
+require('dotenv').config();
+
 const client = mysql.createPool({
     host: process.env.HOST_NAME,
     user: process.env.USER_NAME,
     password: process.env.PASSWORD,
     database: process.env.DATABASE,
-    port: process.env.PORT
+    port: 3306
 });
 
 client.getConnection(function (err) {
