@@ -24,7 +24,7 @@ client.getConnection(function (err) {
     console.log('connected!!!');
 });
 
-// 画像一括取得
+// ツイート一括取得
 app.get('/post', (req, res) => {
     client.query('SELECT * from post;', (err, rows, fields) => {
         if (err) throw err;
@@ -32,7 +32,7 @@ app.get('/post', (req, res) => {
     });
 });
 
-// ユーザーごとの画像を取得
+// ユーザーごとのツイートを取得
 app.post('/post/user', (req, res) => {
     const created_by = req.body.created_by;
     client.query('SELECT * from post WHERE created_by = ?;', [created_by], (err, rows, fields) => {
@@ -41,7 +41,7 @@ app.post('/post/user', (req, res) => {
     });
 });
 
-// 画像のパスを保存
+// ツイートを保存
 app.post('/post/create', (req, res) => {
     const created_by = req.body.created_by;
     const text = req.body.text;
@@ -53,7 +53,7 @@ app.post('/post/create', (req, res) => {
     })
 });
 
-// 画像のパスを削除
+// ツイートを削除
 app.delete('/post/delete', (req, res) => {
     const id = req.body.id;
     const created_by = req.body.created_by;
