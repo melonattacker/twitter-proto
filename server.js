@@ -6,13 +6,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors);
 
-require('dotenv').config();
-
 const client = mysql.createPool({
-    host: process.env.HOST_NAME,
-    user: process.env.USER_NAME,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
+    host: 'us-cdbr-iron-east-02.cleardb.net',
+    user: 'b6f26e95edb042',
+    password: '04f7ce59',
+    database: 'heroku_06f4641160041ce',
     port: 3306
 });
 
@@ -24,7 +22,7 @@ client.getConnection(function (err) {
     console.log('connected!!!');
 });
 
-// ツイート一括取得
+// 画像一括取得
 app.get('/post', (req, res) => {
     client.query('SELECT * from post;', (err, rows, fields) => {
         if (err) throw err;
@@ -32,7 +30,7 @@ app.get('/post', (req, res) => {
     });
 });
 
-// ユーザーごとのツイートを取得
+// ユーザーごとの画像を取得
 app.post('/post/user', (req, res) => {
     const created_by = req.body.created_by;
     client.query('SELECT * from post WHERE created_by = ?;', [created_by], (err, rows, fields) => {
@@ -41,7 +39,7 @@ app.post('/post/user', (req, res) => {
     });
 });
 
-// ツイートを保存
+// 画像のパスを保存
 app.post('/post/create', (req, res) => {
     const created_by = req.body.created_by;
     const text = req.body.text;
@@ -53,7 +51,7 @@ app.post('/post/create', (req, res) => {
     })
 });
 
-// ツイートを削除
+// 画像のパスを削除
 app.delete('/post/delete', (req, res) => {
     const id = req.body.id;
     const created_by = req.body.created_by;
