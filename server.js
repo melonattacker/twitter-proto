@@ -6,8 +6,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors);
 
-require('dotenv').config();
-
 const client = mysql.createPool({
     host: process.env.HOST_NAME,
     user: process.env.USER_NAME,
