@@ -66,4 +66,4 @@ app.delete('/post/delete', (req, res) => {
     });
 });
 
-app.listen(process.env.PORT || 3001, () => console.log('Listening!!'))
+app.listen(process.env.PORT, () => console.log('Listening!!'))
