@@ -3,7 +3,7 @@ import firebase from '../firebase/firebase';
 import { connect } from 'react-redux';
 import Form from './Form.js';
 import {
-    changeText, changeImage, initializeForm, loginUser, logoutUser 
+    changeText, changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed
 } from '../actions'
 
 import '../App.css'
@@ -56,18 +56,22 @@ class App extends Component {
                     text={this.props.text}
                     image={this.props.image}
                     uid={this.props.uid}
+                    isFetching={this.props.isFetching}
                     changeText={this.props.changeText}
                     changeImage={this.props.changeImage}
                     initializeForm={this.props.initializeForm}
+                    requestData={this.props.requestData}
+                    receiveDataSuccess={this.props.receiveDataSuccess}
+                    receiveDataFailed={this.props.receiveDataFailed}
                 />
             </div>
         )
     }
 }
 
-const mapDispatchToProps = ({ changeText, changeImage, initializeForm, loginUser, logoutUser });
+const mapDispatchToProps = ({ changeText, changeImage, initializeForm, loginUser, logoutUser, requestData, receiveDataSuccess, receiveDataFailed });
 
-const mapStateToProps = state => ({ uid: state.users.uid, text: state.form.text, image: state.form.image })
+const mapStateToProps = state => ({ uid: state.users.uid, text: state.form.text, image: state.form.image, isFetching: state.request.isFetching })
 
 export default connect(mapStateToProps,mapDispatchToProps)(App)
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const ROOT_ENDPOINT = 'https://save-image-app.herokuapp.com';
 
-const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => {
+const Form = ({ uid, text, image, isFetching, changeText, changeImage, initializeForm, requestData, receiveDataSuccess, receiveDataFailed }) => {
     const postTweetWithImage = () => {
         if(!uid) {
             alert('ログインしてください');
@@ -19,6 +19,7 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
             return;
         }
         initializeForm();
+        requestData();
         const name = image.name;
         const storageRef = firebase.storage().ref();
         const imageRef = storageRef.child(`${uid}/${name}`);
@@ -39,9 +40,11 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
                     }
                 })
                 .then(res => {
+                    receiveDataSuccess();
                     alert('投稿が完了しました');
                 })
                 .catch(err => {
+                    receiveDataFailed();
                     alert('投稿に失敗しました')
                 })
             } else {
@@ -64,6 +67,7 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
             return;
         }
         initializeForm();
+        requestData();
         axios({
             method: 'post',
             url: ROOT_ENDPOINT + '/post/create',
@@ -74,9 +78,11 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
             }
         })
         .then(res => {
+            receiveDataSuccess();
             alert('投稿が完了しました');
         })
         .catch(err => {
+            receiveDataFailed();
             alert('投稿に失敗しました')
         })
     }
@@ -94,6 +100,10 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
                ) : (
                 <button onClick={() => postTweetWithOutImage()}>投稿</button>
                )
+            }
+            {isFetching
+                ? <h2>Now Posting...</h2>
+                : <p></p>
             }
         </div>
     );
