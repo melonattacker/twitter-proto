@@ -5,11 +5,7 @@ import axios from 'axios';
 const ROOT_ENDPOINT = 'https://save-image-app.herokuapp.com';
 
 const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => {
-    const postTweet = () => {
-        if(!image) {
-            alert('画像を選択して下さい')
-            return;
-        } 
+    const postTweetWithImage = () => {
         if(!uid) {
             alert('ログインしてください');
             return;
@@ -54,6 +50,37 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
         }
     }
 
+    const postTweetWithOutImage = () => {
+        if(!uid) {
+            alert('ログインしてください');
+            return;
+        }
+        if(text.length === 0) {
+            alert('テキストを入力してください');
+            return;
+        }
+        if(text.length > 140) {
+            alert('テキストは140文字以内です');
+            return;
+        }
+        initializeForm();
+        axios({
+            method: 'post',
+            url: ROOT_ENDPOINT + '/post/create',
+            data: {
+                created_by: uid,
+                text: text,
+                image_url: ''
+            }
+        })
+        .then(res => {
+            alert('投稿が完了しました');
+        })
+        .catch(err => {
+            alert('投稿に失敗しました')
+        })
+    }
+
     return (
         <div>
             <div>
@@ -62,7 +89,12 @@ const Form = ({ uid, text, image, changeText, changeImage, initializeForm }) => 
             <div>
                 <textarea  value={text} rows='10' cols='60' type='text' onChange={e => changeText(e.target.value)}></textarea>
             </div>
-            <button onClick={() => postTweet()}>投稿</button>
+            {image? (
+                <button onClick={() => postTweetWithImage()}>投稿</button>
+               ) : (
+                <button onClick={() => postTweetWithOutImage()}>投稿</button>
+               )
+            }
         </div>
     );
 }
